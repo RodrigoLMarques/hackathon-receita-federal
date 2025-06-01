@@ -9,3 +9,18 @@ services:
       - POSTGRES_PASSWORD=789523146
       - POSTGRES_USER=postgres
       - POSTGRES_DB=app_db
+
+  backend:
+    container_name: backend
+    volumes:
+      - ./:/home/node/app
+    restart: always
+    ports:
+      - '3000:3000'
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    env_file:
+      - .env
+    depends_on:
+      - postgres
